@@ -1,17 +1,16 @@
-app.Role = cc.Class.extend({
+Role = cc.Class.extend({
 	sprite:null,
 	layer:null,
 	draw:null,
-	ctor:function(x, y, layer, target){
+	ctor:function(x, y, target){
 		this.x = x;
 		this.y = y;
-		this.layer = layer;
 		this.sprite = new cc.Sprite("res/yinxiao.png");
 		this.sprite.setScale(0.5);
-		var pos = layer.getPositionAt(cc.p(x,y));
-		this.sprite.setPosition(pos);
+		this.sprite.setPosition(utils.tile2Pos(cc.p(x,y)));
 		this.draw = new cc.DrawNode();
-		target.addChild(this.draw, 100);
+		target.addChild(this.draw, 5);
+		target.addChild(this.sprite, 5);
 	},
 
 	setPosition:function(newPosOrxValue, yValue){
@@ -23,11 +22,10 @@ app.Role = cc.Class.extend({
 	 * 移动到指定位置
 	 * @param Pos
 	 */
-	move:function(x,y, target){
+	move:function(x,y){
 		var self = this;
 		self.sprite.stopAllActions();
-		var p = app.utils.convert(cc.p(this.sprite.x, this.sprite.y));
-		var rs = amanager.query({x:p.x,y:p.y},{x:x,y:y});
+		var rs = amanager.query({x:this.x,y:this.y},{x:x,y:y});
 		self.draw.clear();
 		self.draw.drawCardinalSpline(rs, 0, 100, 1);
 		self.draw.setDrawColor(cc.color(255,255,255,255));

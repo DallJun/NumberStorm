@@ -65,7 +65,7 @@ app.Node = cc.Class.extend({
 	 * 获取实际坐标
 	 */
 	getPosition:function(){
-		return this.pos;
+		return utils.posCount(this.pos, 16);
 	},
 	//设置node对应的瓦片地图
 	setTile:function(tile){

@@ -11,11 +11,15 @@
   ],
   "jsList": [
     "src/resource.js",
-    "src/AManager.js",
     "src/config/config.js",
-    "src/utils/utils.js",
     "src/utils/ArrayList.js",
-    "src/Node.js",
-    "src/MainView.js"
+    "src/utils/utils.js",
+    
+    "src/manager/AManager.js",
+    
+    "src/entity/Node.js",
+    "src/entity/Role.js",
+    
+    "src/GameScene.js"
   ]
 }
