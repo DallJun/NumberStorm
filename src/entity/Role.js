@@ -26,6 +26,9 @@ Role = cc.Class.extend({
 		var self = this;
 		self.sprite.stopAllActions();
 		var rs = amanager.query({x:this.x,y:this.y},{x:x,y:y});
+		if(!rs){
+			return;
+		}
 		self.draw.clear();
 		self.draw.drawCardinalSpline(rs, 0, 100, 1);
 		self.draw.setDrawColor(cc.color(255,255,255,255));

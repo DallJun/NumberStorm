@@ -7,10 +7,15 @@ var GameLayer = cc.Layer.extend({
 		this.initMap();
 		this.addDraw();
 		amanager.initTileMapLayer(this.map, "layer01");
-		this.role = new Role(2, 38 ,this);
+		this.role = new Role(17, 32 ,this);
 		
-		this.role.move(11, 33);
+		this.role.move(17, 21);
 		
+		if(amanager.isObstacle(cc.p(17,22))){
+			cc.log("是");
+		}else {
+			cc.log("不是");
+		}
 	},
 	/**
 	 * 加载地图

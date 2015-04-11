@@ -23,6 +23,10 @@ var AManager = function(){
 		var start_node = this.createNode(start.x, start.y); 
 		var end_node = this.createNode(end.x, end.y);
 		openList.add(start_node);
+		if(this.isObstacle(end_node.getPos())){
+			cc.log("目标是障碍物");
+			return null;
+		}
 		while(openList.getSize() != 0) { 
 			if(openList.isExist(end_node.getPos()) && !this.isObstacle(end_node.getPos())) {
 				cc.log("寻找路径成功！");
@@ -38,7 +42,7 @@ var AManager = function(){
 			}
 			this.astar(end);
 		}
-		return [];
+		return null;
 	}
 	
 	/**
@@ -81,14 +85,14 @@ var AManager = function(){
 		if(!closeList.isExist(cc.p(x,y)) && !this.isObstacle(cc.p(x,y))) {  //是否存在于closelite中
 			var node_ = openList.getNodeByLocation(cc.p(x,y));
 			if(node_){ //已经存在于openlist里
-				if(node_.g > node_min.g) {
+				if(node_.g > (node_min.g+expend)) {
 					node_.setParent(node_min);
 					node_.setGValue(expend); //已经消耗
 					node_.setHValue(end, expend); //预计消耗
 					node_.setFValue();
 					openList.sort(this.compare);//排序
 				}
-			}else { 
+			}else {
 				var node_s = this.createNode(x, y);//需要判断的节点
 				node_s.setParent(node_min);
 				node_s.setGValue(expend); //已经消耗
@@ -103,11 +107,11 @@ var AManager = function(){
 	 */
 	this.createNode = function(x, y){
 		var node = new app.Node(x, y);
-//		var gid = this.map.getLayer('layer01').getTileGIDAt(x, y);
-//		var p = this.map.getPropertiesForGID(gid);
-//		if(p&&p.body == "true") {
-//			node.isObstacle = true;
-//		}
+		var gid = this.map.getLayer('layer01').getTileGIDAt(x, y);
+		var p = this.map.getPropertiesForGID(gid);
+		if(p&&p.body == "true") {
+			node.isObstacle = true;
+		}
 		node.setTile(this.layer.getTileAt(cc.p(x, y)));
 		return node;
 	}

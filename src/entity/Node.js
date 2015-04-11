@@ -49,7 +49,7 @@ app.Node = cc.Class.extend({
 	 * @param expend    消耗
 	 */
 	setHValue:function(endPoint,expend){
-		this.h = (Math.abs(endPoint.x - this.x) + Math.abs(endPoint.y - this.y))*expend;
+		this.h = (Math.abs(endPoint.x - this.x) + Math.abs(endPoint.y - this.y));
 	},
 	/**
 	 * 计算F值
