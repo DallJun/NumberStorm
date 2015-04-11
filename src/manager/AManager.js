@@ -6,7 +6,7 @@ var AManager = function(){
 	this.EXPEND_BEVEL = 14;
 	this.layer = null;
 	/**
-	 * 加在瓦片地图
+	 * 初始化瓦片地图
 	 */
 	this.initTileMapLayer = function(map, name) {
 		this.map = map;
@@ -14,7 +14,6 @@ var AManager = function(){
 		this.w = this.layer.getLayerSize().width;
 		this.h = this.layer.getLayerSize().height;
 	}
-	
 	/**
 	 * 寻找路径
 	 */

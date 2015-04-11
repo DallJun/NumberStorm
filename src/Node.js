@@ -61,7 +61,9 @@ app.Node = cc.Class.extend({
 	getPos:function(){
 		return cc.p(this.x, this.y);
 	},
-	//获取实际坐标
+	/**
+	 * 获取实际坐标
+	 */
 	getPosition:function(){
 		return this.pos;
 	},
@@ -69,8 +71,6 @@ app.Node = cc.Class.extend({
 	setTile:function(tile){
 		this.tile = tile;
 		this.pos = tile.getPosition();
-//		this.pos.x += tile.getContentSize().width/2;
-//		this.pos.y += tile.getContentSize().height/2;
 	},
 });
 
