@@ -20,15 +20,18 @@ var AManager = function(){
 	this.query = function(start, end){
 		openList.clear();
 		closeList.clear();
-		var start_node = this.createNode(start.x, start.y); 
-		var end_node = this.createNode(end.x, end.y);
-		openList.add(start_node);
-		if(this.isObstacle(end_node.getPos())){
+		if(!this.isGameRang(end)){
+			cc.log("目标超出了游戏范围");
+			return null;
+		}else if(this.isObstacle(end)){
 			cc.log("目标是障碍物");
 			return null;
 		}
+		var start_node = this.createNode(start.x, start.y); 
+		var end_node = this.createNode(end.x, end.y);
+		openList.add(start_node);
 		while(openList.getSize() != 0) { 
-			if(openList.isExist(end_node.getPos()) && !this.isObstacle(end_node.getPos())) {
+			if(openList.isExist(end_node.getPos())) {
 				cc.log("寻找路径成功！");
 				var endNode = openList.getNodeByLocation(end_node.getPos());
 				var index = endNode;
@@ -37,7 +40,7 @@ var AManager = function(){
 					rs.push(index.getPosition());
 					index = index.parentNode;
 				}
-				rs.push(start_node.getPosition());
+				rs.push(start_node.getPosition()); 
 				return 	rs.reverse();
 			}
 			this.astar(end);
@@ -111,7 +114,7 @@ var AManager = function(){
 		var p = this.map.getPropertiesForGID(gid);
 		if(p&&p.body == "true") {
 			node.isObstacle = true;
-		}
+		} 
 		node.setTile(this.layer.getTileAt(cc.p(x, y)));
 		return node;
 	}
@@ -126,6 +129,18 @@ var AManager = function(){
 			return false;
 		}
 	}
+	/**
+	 * 判断目标点是否在游戏范围 
+	 * end:终点坐标
+	 */
+	this.isGameRang = function(end){
+		if(end.x < 0 || end.y < 0 || end.x >= game.mapWidth || end.y >= game.mapHeight){
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
 	
 };
 

@@ -25,7 +25,7 @@ Role = cc.Class.extend({
 	move:function(x,y){
 		var self = this;
 		self.sprite.stopAllActions();
-		var rs = amanager.query({x:this.x,y:this.y},{x:x,y:y});
+		var rs = amanager.query(cc.p(self.x, self.y),cc.p(x,y));
 		if(!rs){
 			return;
 		}

@@ -7,15 +7,8 @@ var GameLayer = cc.Layer.extend({
 		this.initMap();
 		this.addDraw();
 		amanager.initTileMapLayer(this.map, "layer01");
-		this.role = new Role(17, 32 ,this);
-		
-		this.role.move(17, 21);
-		
-		if(amanager.isObstacle(cc.p(17,22))){
-			cc.log("是");
-		}else {
-			cc.log("不是");
-		}
+		this.role = new Role(13, 32 ,this);
+		this.role.move(13, 23);	
 	},
 	/**
 	 * 加载地图
@@ -38,9 +31,9 @@ var GameLayer = cc.Layer.extend({
 				var body = this.map.getPropertiesForGID(gid);
 				var pos = layer.getPositionAt(cc.p(i,j)); 
 				if(body&&body.body == "true") {
-					//this.draw.drawRect(pos, utils.posAdd(pos), cc.color(255, 0, 0, 255), 1, cc.color(0, 0, 0, 255));
+					this.draw.drawRect(pos, utils.posAdd(pos), cc.color(255, 0, 0, 255), 1, cc.color(0, 0, 0, 255));
 				}else {
-					//this.draw.drawRect(pos, utils.posAdd(pos), cc.color(0, 0, 0, 0), 1, cc.color(0, 140, 0, 255));
+					this.draw.drawRect(pos, utils.posAdd(pos), cc.color(0, 0, 0, 0), 1, cc.color(0, 140, 0, 255));
 				}
 			}
 		}

@@ -30,6 +30,9 @@ $app.game.PhysicsManager = {
         }
         //this.createWall($app.game.MapManager.getMapSzie());
     },
+    /**
+     * 创建世界墙壁
+     */
     createWall:function(size){
         //创建墙壁
         var staticBody = new cp.StaticBody();
