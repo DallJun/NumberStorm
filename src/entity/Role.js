@@ -14,6 +14,8 @@ Role = cc.Class.extend({
 		this.draw = new cc.DrawNode();
 		target.addChild(this.draw, 5);
 		target.addChild(this.sprite, 5);
+		var pp = utils.pos2tile(this.sprite.getPosition());
+		cc.log(pp.x+":" + pp.y);
 	},
 
 	setPosition:function(newPosOrxValue, yValue){
@@ -32,10 +34,21 @@ Role = cc.Class.extend({
 	 */
 	spriteUpdate:function(body, dt){
 		if(this.locs.length != 0){
+			//轮询路径点数组,寻找下一个路径点行走过去
+			//1.判断自己是否在当前点中
+			
+			//2.不在当前点,开始前往下一个点
 			body.setVel(cp.v(0, 30));
 		}
 	},
-	
+	/**
+	 * 检查位置是否在原来的位置
+	 * @param loc 
+	 */
+	checkLoc:function(loc){
+		
+		return false;
+	},
 	/**
 	 * 移动到指定位置
 	 * @param Pos

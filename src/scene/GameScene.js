@@ -8,7 +8,7 @@ var GameLayer = cc.Layer.extend({
 		this.addDraw();
 		amanager.initTileMapLayer(this.map, "layer01");
 		
-		this.role = new Role(8, 32,this);
+		this.role = new Role(8, 31,this);
 		this.role.move(13, 23);
 		this.runAction(cc.follow(this.role.sprite)); 
 		

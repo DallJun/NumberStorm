@@ -101,28 +101,27 @@ var pManager = {
     },
     clearBodys:function(){
     	cc.log("清楚所有刚体!");
-//        for(var i=0; i<this.dynamicBodies.length;i++) { //刷新精灵位置
-//            cc.log('clearBodys 1');
-//            var body1 = this.dynamicBodies[i];
-//            var sprite = body1.sprite;
-//            //sprite.delHandler();
-//            this.space.removeBody(body1);
-//            this.space.removeShape(sprite.shape);
-//        }
-//        this.dynamicBodies.length = 0;
-//        for(var j=0; j<this.staticBodies.length;j++) {
-//            var body2 = this.staticBodies[j];
-//            body2.sprite.delHandler();
-//            this.space.removeStaticShape(body2.sprite.shape);
-//        }
-//        this.staticBodies.length = 0;
+        for(var i=0; i<this.dynamicBodies.length;i++) { //刷新精灵位置
+            var body1 = this.dynamicBodies[i];
+            var sprite = body1.sprite;
+            //sprite.delHandler();
+            this.space.removeBody(body1);
+            this.space.removeShape(sprite.shape);
+        }
+        this.dynamicBodies.length = 0;
+        for(var j=0; j<this.staticBodies.length;j++) {
+            var body2 = this.staticBodies[j];
+            body2.sprite.delHandler();
+            this.space.removeStaticShape(body2.sprite.shape);
+        }
+        this.staticBodies.length = 0;
 //        for( var i=0; i < this.walls.length; i++ ) {
 //            this.space.removeStaticShape(this.walls[i]);
 //        }
 //        this.walls.length = 0;
     },
     update:function(dt){ 
-        //更新刚体，回收刚体
+        //更新刚体，回收刚体 
         this.space.step(dt);
 
         var removeShape = [];

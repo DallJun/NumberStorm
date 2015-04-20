@@ -9,10 +9,16 @@ utils.posCount = function(pos, num){
 }
 
 utils.tile2Pos = function(pos){
-	
 	return utils.posCount(cc.p(pos.x*game.tileWidth, game.height - pos.y*game.tileHeight), 16);
 }
 
 utils.scale = function(size, num){
 	return cc.size(size.width*num, size.height*num);
+}
+
+utils.pos2tile = function(pos){
+	pos = utils.posCount(pos, -16);
+	var x = Math.floor(pos.x/game.tileWidth);
+	var y = Math.floor((game.height - pos.y)/game.tileHeight);
+	return cc.p(x,y);
 }
