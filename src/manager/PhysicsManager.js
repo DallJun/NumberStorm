@@ -8,7 +8,8 @@ var pManager = {
 
     _scene:null,   //当前游戏层
     space:null,
-
+    dynamicBodies: [], //动态刚体
+    staticBodies: [], //静态刚体
     create_world:function(_scene,config){
         //初始化数据
         this._scene = _scene;//游戏当前场景
@@ -58,17 +59,15 @@ var pManager = {
             this.space.addStaticShape( shape );
         }
     },
-    dynamicBodies: [],
-    staticBodies: [],
     createDynamicBody:function(spriteTag,groupTag,sprite){
         //创建刚体，形状
         var pos = sprite.getPos();
-        var size = sprite.getSize();
+        var size = sprite.getSize(); 
 
         var body = new cp.Body(1, Infinity);
         body.setPos(cp.v(pos.x,pos.y));
         var shape = new cp.BoxShape(body,size.width,size.height);
-        shape.setElasticity(0);     //弹力
+        shape.setElasticity(0);     //弹力 
         shape.setFriction(0);     //摩擦力
         shape.setCollisionType(spriteTag);
         shape.group = groupTag;
@@ -85,7 +84,6 @@ var pManager = {
         //创建刚体，形状
         var pos = sprite.getPos();
         var size = sprite.getSize();
-
         var body = new cp.StaticBody();
         body.setPos(cp.v(pos.x,pos.y));
         var shape = new cp.BoxShape(body,size.width,size.height);
@@ -123,7 +121,7 @@ var pManager = {
 //        }
 //        this.walls.length = 0;
     },
-    update:function(dt){
+    update:function(dt){ 
         //更新刚体，回收刚体
         this.space.step(dt);
 
@@ -149,7 +147,7 @@ var pManager = {
             this.space.removeShape(shape);
         }
 
-        this._scene.adjustCamera();
+        //this._scene.adjustCamera();
     },
 
     initCollisionHandlers:function(config){//初始化碰撞事件

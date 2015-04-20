@@ -40,7 +40,7 @@ var AManager = function(){
 					rs.push(index.getPosition());
 					index = index.parentNode;
 				}
-				rs.push(start_node.getPosition()); 
+				//rs.push(start_node.getPosition()); 
 				return 	rs.reverse();
 			}
 			this.astar(end);

@@ -12,3 +12,7 @@ utils.tile2Pos = function(pos){
 	
 	return utils.posCount(cc.p(pos.x*game.tileWidth, game.height - pos.y*game.tileHeight), 16);
 }
+
+utils.scale = function(size, num){
+	return cc.size(size.width*num, size.height*num);
+}

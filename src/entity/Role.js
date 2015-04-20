@@ -2,11 +2,14 @@ Role = cc.Class.extend({
 	sprite:null,
 	layer:null,
 	draw:null,
+	vel:null,//速度
+	locs:null, //需要行走的路径
 	ctor:function(x, y, target){
 		this.x = x;
 		this.y = y;
+		this.locs = [];
 		this.sprite = new cc.Sprite("res/role.png");
-		//this.sprite.setScale(0.5);
+		this.sprite.setScale(0.5);
 		this.sprite.setPosition(utils.tile2Pos(cc.p(x,y)));
 		this.draw = new cc.DrawNode();
 		target.addChild(this.draw, 5);
@@ -17,6 +20,21 @@ Role = cc.Class.extend({
 		this.sprite.setPosition(newPosOrxValue, yValue);
 	},
 	
+	getPos:function(){
+		return this.sprite.getPosition();
+	},
+	
+	getSize:function(){
+		return utils.scale(this.sprite.getContentSize(), 0.5);
+	},
+	/**
+	 * 重画自己,更新自己
+	 */
+	spriteUpdate:function(body, dt){
+		if(this.locs.length != 0){
+			body.setVel(cp.v(0, 30));
+		}
+	},
 	
 	/**
 	 * 移动到指定位置
