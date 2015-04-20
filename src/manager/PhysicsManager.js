@@ -4,7 +4,7 @@
  * 动态刚体：角色，技能，
  * 静态刚体：围墙，障碍，道具
  */
-$app.game.PhysicsManager = {
+var pManager = {
 
     _scene:null,   //当前游戏层
     space:null,
@@ -14,6 +14,7 @@ $app.game.PhysicsManager = {
         this._scene = _scene;//游戏当前场景
 
         if(!this.space){
+        	cc.log("创建物理世界");
             this.space = new cp.Space();
             this.space.gravity = cp.v(0, 0); //重力
             //this.initCollisionHandlers(config); //初始化碰撞处理
@@ -23,10 +24,10 @@ $app.game.PhysicsManager = {
             //清空刚体
             this.clearBodys();
         }
-        if(2){//$config.physic.debug) {
+        if(true){//$config.physic.debug) {
             var debugNode = cc.PhysicsDebugNode.create(this.space);
             debugNode.setVisible(true);
-            _scene._playlayer.addChild(debugNode, 9999999);
+            _scene.addChild(debugNode, 9999999);
         }
         //this.createWall($app.game.MapManager.getMapSzie());
     },
@@ -101,25 +102,26 @@ $app.game.PhysicsManager = {
         this.staticBodies.push(body);
     },
     clearBodys:function(){
-        for(var i=0; i<this.dynamicBodies.length;i++) { //刷新精灵位置
-            cc.log('clearBodys 1');
-            var body1 = this.dynamicBodies[i];
-            var sprite = body1.sprite;
-            //sprite.delHandler();
-            this.space.removeBody(body1);
-            this.space.removeShape(sprite.shape);
-        }
-        this.dynamicBodies.length = 0;
-        for(var j=0; j<this.staticBodies.length;j++) {
-            var body2 = this.staticBodies[j];
-            body2.sprite.delHandler();
-            this.space.removeStaticShape(body2.sprite.shape);
-        }
-        this.staticBodies.length = 0;
-        for( var i=0; i < this.walls.length; i++ ) {
-            this.space.removeStaticShape(this.walls[i]);
-        }
-        this.walls.length = 0;
+    	cc.log("清楚所有刚体!");
+//        for(var i=0; i<this.dynamicBodies.length;i++) { //刷新精灵位置
+//            cc.log('clearBodys 1');
+//            var body1 = this.dynamicBodies[i];
+//            var sprite = body1.sprite;
+//            //sprite.delHandler();
+//            this.space.removeBody(body1);
+//            this.space.removeShape(sprite.shape);
+//        }
+//        this.dynamicBodies.length = 0;
+//        for(var j=0; j<this.staticBodies.length;j++) {
+//            var body2 = this.staticBodies[j];
+//            body2.sprite.delHandler();
+//            this.space.removeStaticShape(body2.sprite.shape);
+//        }
+//        this.staticBodies.length = 0;
+//        for( var i=0; i < this.walls.length; i++ ) {
+//            this.space.removeStaticShape(this.walls[i]);
+//        }
+//        this.walls.length = 0;
     },
     update:function(dt){
         //更新刚体，回收刚体

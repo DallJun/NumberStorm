@@ -5,8 +5,8 @@ Role = cc.Class.extend({
 	ctor:function(x, y, target){
 		this.x = x;
 		this.y = y;
-		this.sprite = new cc.Sprite("res/yinxiao.png");
-		this.sprite.setScale(0.5);
+		this.sprite = new cc.Sprite("res/role.png");
+		//this.sprite.setScale(0.5);
 		this.sprite.setPosition(utils.tile2Pos(cc.p(x,y)));
 		this.draw = new cc.DrawNode();
 		target.addChild(this.draw, 5);

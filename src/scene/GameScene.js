@@ -4,11 +4,13 @@ var GameLayer = cc.Layer.extend({
 	role:null,
 	ctor:function () {
 		this._super();
-		this.initMap();
-		this.addDraw();
+		this.initMap(); 
+		//this.addDraw();
 		amanager.initTileMapLayer(this.map, "layer01");
+		pManager.create_world(this, null);
 		this.role = new Role(13, 32 ,this);
-		this.role.move(13, 23);	
+		this.role.move(13, 23);
+		this.runAction(cc.follow(this.role.sprite));
 	},
 	/**
 	 * 加载地图

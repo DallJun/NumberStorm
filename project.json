@@ -15,11 +15,12 @@
     "src/utils/ArrayList.js",
     "src/utils/utils.js",
     
+    "src/manager/PhysicsManager.js",
     "src/manager/AManager.js",
     
     "src/entity/Node.js",
     "src/entity/Role.js",
     
-    "src/GameScene.js"
+    "src/scene/GameScene.js"
   ]
 }
