@@ -36,8 +36,10 @@ Role = cc.Class.extend({
 		if(this.locs.length != 0){
 			//轮询路径点数组,寻找下一个路径点行走过去
 			//1.判断自己是否在当前点中
-			
-			//2.不在当前点,开始前往下一个点
+			if(!this.checkLoc(this.sprite.getPos())){
+				//2.不在当前点,开始前往下一个点
+				
+			}
 			body.setVel(cp.v(0, 30));
 		}
 	},
@@ -46,8 +48,11 @@ Role = cc.Class.extend({
 	 * @param loc 
 	 */
 	checkLoc:function(loc){
-		
-		return false;
+		loc = utils.pos2tile(loc);
+		if(utils.isequal(loc, cc.p(this.x, this.y))){
+			return false;
+		}
+		return true;
 	},
 	/**
 	 * 移动到指定位置

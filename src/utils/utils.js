@@ -22,3 +22,10 @@ utils.pos2tile = function(pos){
 	var y = Math.floor((game.height - pos.y)/game.tileHeight);
 	return cc.p(x,y);
 }
+
+utils.isequal = function(pos1 ,pos2){
+	if(pos1.x == pos2.y && pos1.y == pos2.y){
+		return true;
+	}
+	return false;
+}
