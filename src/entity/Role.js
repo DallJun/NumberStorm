@@ -7,7 +7,7 @@ Role = cc.Class.extend({
 	ctor:function(x, y, target){
 		this.x = x;
 		this.y = y;
-		this.locs = [];
+		this.locs = new ArrayList();
 		this.sprite = new cc.Sprite("res/role.png");
 		this.sprite.setScale(0.5);
 		this.sprite.setPosition(utils.tile2Pos(cc.p(x,y)));
@@ -33,10 +33,10 @@ Role = cc.Class.extend({
 	 * 重画自己,更新自己
 	 */
 	spriteUpdate:function(body, dt){
-		if(this.locs.length != 0){
+		if(this.locs.getSize() != 0){
 			//轮询路径点数组,寻找下一个路径点行走过去
 			//1.判断自己是否在当前点中
-			if(!this.checkLoc(this.sprite.getPos())){
+			if(!this.checkLoc(this.sprite.getPos(), this.locs.get(0))){
 				//2.不在当前点,开始前往下一个点
 				
 			}
@@ -45,36 +45,45 @@ Role = cc.Class.extend({
 	},
 	/**
 	 * 检查位置是否在原来的位置
-	 * @param loc 
+	 * @param loc 精灵所处的位置
 	 */
-	checkLoc:function(loc){
+	checkLoc:function(loc, pos){
 		loc = utils.pos2tile(loc);
-		if(utils.isequal(loc, cc.p(this.x, this.y))){
+		if(utils.isequal(loc, pos)){
 			return false;
 		}
 		return true;
 	},
-	/**
-	 * 移动到指定位置
-	 * @param Pos
-	 */
-	move:function(x,y){
-		var self = this;
-		self.sprite.stopAllActions();
-		var rs = amanager.query(cc.p(self.x, self.y),cc.p(x,y));
-		if(!rs){
-			return;
+	
+	moveTo:function(tp){
+		//获取路径节点
+		var rs = amanager.query(cc.p(this.x, this.y), tp);
+		if(rs){
+			
 		}
-		self.draw.clear();
-		self.draw.drawCardinalSpline(rs, 0, 100, 1);
-		self.draw.setDrawColor(cc.color(255,255,255,255));
-		self.draw.drawDot(rs[rs.length-1],16,new cc.Color(0, 255, 0, 255));
-		for(var k in rs){
-			self.draw.drawDot(rs[k], 6);
-		}
-		var move = cc.catmullRomTo(4, rs);
-		self.sprite.runAction(move);
 	}
+	
+//	/**
+//	 * 移动到指定位置
+//	 * @param Pos
+//	 */
+//	move:function(x,y){
+//		var self = this;
+//		self.sprite.stopAllActions();
+//		var rs = amanager.query(cc.p(self.x, self.y),cc.p(x,y));
+//		if(!rs){
+//			return;
+//		}
+//		self.draw.clear();
+//		self.draw.drawCardinalSpline(rs, 0, 100, 1);
+//		self.draw.setDrawColor(cc.color(255,255,255,255));
+//		self.draw.drawDot(rs[rs.length-1],16,new cc.Color(0, 255, 0, 255));
+//		for(var k in rs){
+//			self.draw.drawDot(rs[k], 6);
+//		}
+//		var move = cc.catmullRomTo(4, rs);
+//		self.sprite.runAction(move);
+//	}
 	
 	
 });

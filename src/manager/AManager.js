@@ -37,7 +37,8 @@ var AManager = function(){
 				var index = endNode;
 				var rs = [];
 				while(index.parentNode != null){ 
-					rs.push(index.getPosition());
+//					rs.push(index.getPosition());
+					rs.push(index);
 					index = index.parentNode;
 				}
 				//rs.push(start_node.getPosition()); 
