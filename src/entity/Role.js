@@ -3,11 +3,12 @@ Role = cc.Class.extend({
 	layer:null,
 	draw:null,
 	vel:null,//速度
-	locs:null, //需要行走的路径
+	locs:null, //需要行走的路径  
 	ctor:function(x, y, target){
 		this.x = x;
 		this.y = y;
-		this.locs = new ArrayList();
+		this.vel = 50;
+		this.locs = new LinkList();
 		this.sprite = new cc.Sprite("res/role.png");
 		this.sprite.setScale(0.5);
 		this.sprite.setPosition(utils.tile2Pos(cc.p(x,y)));
@@ -15,8 +16,7 @@ Role = cc.Class.extend({
 		target.addChild(this.draw, 5);
 		target.addChild(this.sprite, 5);
 		var pp = utils.pos2tile(this.sprite.getPosition());
-		cc.log(pp.x+":" + pp.y);
-	},
+	}, 
 
 	setPosition:function(newPosOrxValue, yValue){
 		this.sprite.setPosition(newPosOrxValue, yValue);
@@ -35,13 +35,29 @@ Role = cc.Class.extend({
 	spriteUpdate:function(body, dt){
 		if(this.locs.getSize() != 0){
 			//轮询路径点数组,寻找下一个路径点行走过去
+			var node = this.locs.getHeardNode();
 			//1.判断自己是否在当前点中
-			if(!this.checkLoc(this.sprite.getPos(), this.locs.get(0))){
-				//2.不在当前点,开始前往下一个点
-				
+			if(this.checkLoc(this.sprite.getPosition(), node.getPos())){
+//				cc.log("取出下一个位置:" + node.toString());
+				this.locs.removeHeardNode();
+//				cc.log("清楚已经行走过的地点");
+			}else{
+				//1.取出目标位置
+				var target = utils.posCount(utils.tile2Pos(node.getPos()),0);
+				var sprite = this.sprite.getPosition();
+//				cc.log("----------------------------");
+//				cc.log("目标坐标:" + target.x + ":" + target.y);
+//				cc.log("自己坐标:" + sprite.x + ":" + sprite.y);
+				var x = target.x - sprite.x; 
+				var y = target.y - sprite.y; 
+				var r = cc.degreesToRadians(Math.atan2(y, x) * 57.29577951);
+				//2.往目标位置移动
+				body.setVel(cp.v(Math.cos(r)*this.vel, Math.sin(r)*this.vel));
+				this.sprite.setPosition(body.getPos());
 			}
-			body.setVel(cp.v(0, 30));
-		}
+		}else {//停止运动
+			body.setVel(cp.v(0,0));
+		} 
 	},
 	/**
 	 * 检查位置是否在原来的位置
@@ -49,41 +65,40 @@ Role = cc.Class.extend({
 	 */
 	checkLoc:function(loc, pos){
 		loc = utils.pos2tile(loc);
+//		cc.log("精灵位置:" + loc.x + ":" +loc.y);
+//		cc.log("目标位置:" + pos.x + ":" +pos.y);
 		if(utils.isequal(loc, pos)){
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	},
 	
 	moveTo:function(tp){
 		//获取路径节点
 		var rs = amanager.query(cc.p(this.x, this.y), tp);
-		if(rs){
-			
+		this.drawLocs(rs);
+		if(rs){ 
+			for(var k in rs){
+				this.locs.addNode(rs[k]);
+			}
 		}
-	}
+	},
 	
-//	/**
-//	 * 移动到指定位置
-//	 * @param Pos
-//	 */
-//	move:function(x,y){
-//		var self = this;
-//		self.sprite.stopAllActions();
-//		var rs = amanager.query(cc.p(self.x, self.y),cc.p(x,y));
-//		if(!rs){
-//			return;
-//		}
-//		self.draw.clear();
-//		self.draw.drawCardinalSpline(rs, 0, 100, 1);
-//		self.draw.setDrawColor(cc.color(255,255,255,255));
-//		self.draw.drawDot(rs[rs.length-1],16,new cc.Color(0, 255, 0, 255));
-//		for(var k in rs){
-//			self.draw.drawDot(rs[k], 6);
-//		}
-//		var move = cc.catmullRomTo(4, rs);
-//		self.sprite.runAction(move);
-//	}
+	/**
+	 * 画出自己的路径
+	 */
+	drawLocs:function(rs){
+		if(!rs){
+			return;
+		}
+		this.draw.clear();
+		var locs = [];
+		for(var k in rs){
+			locs[k] = utils.tile2Pos(rs[k].getPos());
+		}
+		this.draw.drawCardinalSpline(locs, 0, 100, 1);
+		this.draw.setDrawColor(cc.color(255,255,255,255));
+	}
 	
 	
 });

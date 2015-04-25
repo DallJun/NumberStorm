@@ -7,19 +7,23 @@
   "renderMode": 0,
   "engineDir": "frameworks/cocos2d-html5",
   "modules": [
-    "cocos2d"
+        "cocos2d",
+        "extensions",
+        "external"
   ],
   "jsList": [
     "src/resource.js",
     "src/config/config.js",
     "src/utils/ArrayList.js",
+    "src/utils/LinkList.js",
     "src/utils/utils.js",
     
-    "src/manager/PhysicsManager.js",
+    "src/manager/PhysicsManager.js", 
     "src/manager/AManager.js",
     
     "src/entity/Node.js",
     "src/entity/Role.js",
+    "src/entity/Enemy.js",
     
     "src/scene/GameScene.js"
   ]

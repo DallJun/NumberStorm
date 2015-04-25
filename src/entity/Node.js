@@ -10,6 +10,7 @@ app.Node = cc.Class.extend({
 	f:null,    //消耗能量总和
 	tile:null,
 	isObstacle:false, //是否是障碍物
+	pos:null,
 	
 	ctor:function(x, y, parentNode){
 		this.x = x;
@@ -71,7 +72,21 @@ app.Node = cc.Class.extend({
 	setTile:function(tile){
 		this.tile = tile;
 		this.pos = tile.getPosition();
+		
+//		cc.log("--------------------------");
+//		cc.log("tile: " + this.x + " : " + this.y);
+//		cc.log("pos: " + this.pos.x + " : " +this.pos.y);
+//		var p = utils.pos2tile(this.pos);
+//		cc.log("p: " + p.x + " : " + p.y);
+//		cc.log("--------------------------");
+		
+		
 	},
+	
+	toString:function(){
+		return "loc = " +this.x +":" +this.y + ";  pos = " +this.pos.x + ":" +this.pos.y;
+	}
+	
 });
 
 
