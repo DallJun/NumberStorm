@@ -25,5 +25,8 @@ var LinkList = function(){
 	this.removeHeardNode = function(){
 		arr.remove(0);
 	}
+	this.clear = function(){
+		arr.clear();
+	}
 	
 }

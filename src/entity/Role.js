@@ -57,7 +57,7 @@ Role = cc.Class.extend({
 			}
 		}else {//停止运动
 			body.setVel(cp.v(0,0));
-		} 
+		}
 	},
 	/**
 	 * 检查位置是否在原来的位置
@@ -74,14 +74,17 @@ Role = cc.Class.extend({
 	},
 	
 	moveTo:function(tp){
+		var self = this;
+		this.locs.clear();
 		//获取路径节点
-		var rs = amanager.query(cc.p(this.x, this.y), tp);
-		this.drawLocs(rs);
-		if(rs){ 
-			for(var k in rs){
-				this.locs.addNode(rs[k]);
+		amanager.query(cc.p(this.x, this.y), tp ,function(rs){
+			self.drawLocs(rs);
+			if(rs){ 
+				for(var k in rs){
+					self.locs.addNode(rs[k]);
+				}
 			}
-		}
+		});
 	},
 	
 	/**

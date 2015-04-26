@@ -11,30 +11,28 @@ var GameLayer = cc.Layer.extend({
 		this.addEnemys();
 		amanager.initTileMapLayer(this.map, "layer01");
 
-		this.role = new Role(11, 35, this); 
-//		this.runAction(cc.follow(this.role.sprite));  
+		this.role = new Role(11, 35, this);
+		this.role.moveTo(cc.p(23, 35));
+		this.runAction(cc.follow(this.role.sprite));  
 		
 		pManager.create_world(this, null);
 		pManager.createDynamicBody(1, 1, this.role);
 		
-		this.scheduleUpdate();
-		
+		//敌人
 		this.enemys = new Array();
-		for(var i=0; i<3; i++){
-			var e = new Enemy(i+3, 23, this);
+		for(var i=0; i<4; i++){
+			var e = new Enemy(i+3, 23, this ,this.role);
 			this.enemys.push(e);
 			pManager.createDynamicBody(1, 1, e); 
 		}
-		for(var k in this.enemys){
-			this.enemys[k].moveTo(utils.pos2tile(this.role.sprite.getPosition()));
-		}
 		
+		this.scheduleUpdate();
 	}, 
+	
 	update:function(dt){
 		var self = this;
 		pManager.update(dt);
 	},
-	
 	/**
 	 * 加载地图
 	 */
@@ -71,10 +69,10 @@ var GameLayer = cc.Layer.extend({
 				return true;
 			},
 			onTouchEnded: function(touch, event) {
-//				var pos = touch.getLocation();
-//				cc.log("onTouchEnded at: " + pos.x + " " + pos.y);
-//				var tile = utils.pos2tile(pos);
-//				cc.log("tile: " + tile.x + " : " + tile.y);
+				var pos = touch.getLocation();
+				cc.log("onTouchEnded at: " + pos.x + " " + pos.y);
+				var tile = utils.pos2tile(pos);
+				cc.log("tile: " + tile.x + " : " + tile.y);
 			}
 		}, this);
 	},

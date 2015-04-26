@@ -17,7 +17,7 @@ var AManager = function(){
 	/**
 	 * 寻找路径
 	 */
-	this.query = function(start, end){
+	this.query = function(start, end , callFun){
 		openList.clear();
 		closeList.clear();
 		if(!this.isGameRang(end)){
@@ -42,11 +42,12 @@ var AManager = function(){
 					index = index.parentNode;
 				}
 				//rs.push(start_node.getPosition()); 
-				return 	rs.reverse();
+//				return 	rs.reverse();
+				callFun(rs.reverse());
 			}
 			this.astar(end);
 		}
-		return null;
+//		return null;
 	}
 	
 	/**
