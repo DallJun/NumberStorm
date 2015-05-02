@@ -4,9 +4,12 @@ Role = cc.Class.extend({
 	draw:null,
 	vel:null,//速度
 	locs:null, //需要行走的路径  
+	uuid:null, //唯一标示
+	
 	ctor:function(x, y, target){
 		this.x = x;
 		this.y = y;
+		this.uuid = x + ":" + y;
 		this.vel = 50;
 		this.locs = new LinkList();
 		this.sprite = new cc.Sprite("res/role.png");
@@ -33,7 +36,9 @@ Role = cc.Class.extend({
 	 * 重画自己,更新自己
 	 */
 	spriteUpdate:function(body, dt){
-		if(this.locs.getSize() != 0){
+		var self = this;
+//		cc.log("update : " + self.uuid);
+		if(this.locs.getSize() != 0){ 
 			//轮询路径点数组,寻找下一个路径点行走过去
 			var node = this.locs.getHeardNode();
 			//1.判断自己是否在当前点中
@@ -45,9 +50,6 @@ Role = cc.Class.extend({
 				//1.取出目标位置
 				var target = utils.posCount(utils.tile2Pos(node.getPos()),0);
 				var sprite = this.sprite.getPosition();
-//				cc.log("----------------------------");
-//				cc.log("目标坐标:" + target.x + ":" + target.y);
-//				cc.log("自己坐标:" + sprite.x + ":" + sprite.y);
 				var x = target.x - sprite.x; 
 				var y = target.y - sprite.y; 
 				var r = cc.degreesToRadians(Math.atan2(y, x) * 57.29577951);
@@ -65,8 +67,6 @@ Role = cc.Class.extend({
 	 */
 	checkLoc:function(loc, pos){
 		loc = utils.pos2tile(loc);
-//		cc.log("精灵位置:" + loc.x + ":" +loc.y);
-//		cc.log("目标位置:" + pos.x + ":" +pos.y);
 		if(utils.isequal(loc, pos)){
 			return true;
 		}
@@ -76,8 +76,9 @@ Role = cc.Class.extend({
 	moveTo:function(tp){
 		var self = this;
 		this.locs.clear();
+		//查询路径是耗时操作,需要异步操作
 		//获取路径节点
-		amanager.query(cc.p(this.x, this.y), tp ,function(rs){
+		amanager.query(utils.pos2tile(self.sprite.getPosition()), tp ,function(rs){
 			self.drawLocs(rs);
 			if(rs){ 
 				for(var k in rs){
@@ -86,7 +87,6 @@ Role = cc.Class.extend({
 			}
 		});
 	},
-	
 	/**
 	 * 画出自己的路径
 	 */

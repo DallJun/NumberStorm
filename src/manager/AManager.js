@@ -18,6 +18,10 @@ var AManager = function(){
 	 * 寻找路径
 	 */
 	this.query = function(start, end , callFun){
+		var startTime = new Date().getTime();
+		if(start.x == end.x && start.y == end.y){
+			return ;
+		}
 		openList.clear();
 		closeList.clear();
 		if(!this.isGameRang(end)){
@@ -30,9 +34,9 @@ var AManager = function(){
 		var start_node = this.createNode(start.x, start.y); 
 		var end_node = this.createNode(end.x, end.y);
 		openList.add(start_node);
-		while(openList.getSize() != 0) { 
+		while(openList.getSize() != 0) {
 			if(openList.isExist(end_node.getPos())) {
-				cc.log("寻找路径成功！");
+//				cc.log("寻找路径成功！");
 				var endNode = openList.getNodeByLocation(end_node.getPos());
 				var index = endNode;
 				var rs = [];
@@ -44,10 +48,13 @@ var AManager = function(){
 				//rs.push(start_node.getPosition()); 
 //				return 	rs.reverse();
 				callFun(rs.reverse());
+				var endTime = new Date().getTime();
+				cc.log("寻路耗时: " + (endTime - startTime));
+				return;
 			}
 			this.astar(end);
 		}
-//		return null;
+		return;
 	}
 	
 	/**

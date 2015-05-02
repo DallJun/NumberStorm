@@ -110,7 +110,7 @@ var ArrayList = function(){
 	 * 清空数组
 	 */
 	this.clear = function(){
-		arr.length = 0
+		arr.length = 0;
 	}
 	
 }
