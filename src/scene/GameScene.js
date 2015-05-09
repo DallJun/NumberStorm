@@ -5,19 +5,16 @@ var GameLayer = cc.Layer.extend({
 	enemys:null,
 	ctor:function () {
 		this._super();
-		this.initMap();
-		this.addDraw(); 
-		this.addTouch();
-		this.addEnemys();
+		this.initMap(); //加载地图
+		this.addDraw();  //添加绘画层
+		this.addTouch();  //添加触屏事件
+		this.addEnemys(); //添加敌人
 		amanager.initTileMapLayer(this.map, "layer01");
- 
 		this.role = new Role(11, 35, this);
 		this.role.moveTo(cc.p(28, 20));
-//		this.runAction(cc.follow(this.role.sprite));  
-		
+		this.runAction(cc.follow(this.role.sprite));  
 		pManager.create_world(this, null);
 		pManager.createDynamicBody(1, 1, this.role);
-		
 		//敌人
 		this.enemys = new Array(); 
 		for(var i=0; i<4; i++){
@@ -25,7 +22,6 @@ var GameLayer = cc.Layer.extend({
 			this.enemys.push(e);
 			pManager.createDynamicBody(1, 1, e); 
 		}
-		
 		this.scheduleUpdate();
 	}, 
 	

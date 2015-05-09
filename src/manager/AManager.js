@@ -17,7 +17,7 @@ var AManager = function(){
 	/**
 	 * 寻找路径
 	 */
-	this.query = function(start, end , callFun){
+	this.query = function(start, end, callFun){
 		var startTime = new Date().getTime();
 		if(start.x == end.x && start.y == end.y){
 			return ;
@@ -36,17 +36,13 @@ var AManager = function(){
 		openList.add(start_node);
 		while(openList.getSize() != 0) {
 			if(openList.isExist(end_node.getPos())) {
-//				cc.log("寻找路径成功！");
 				var endNode = openList.getNodeByLocation(end_node.getPos());
 				var index = endNode;
 				var rs = [];
 				while(index.parentNode != null){ 
-//					rs.push(index.getPosition());
 					rs.push(index);
 					index = index.parentNode;
 				}
-				//rs.push(start_node.getPosition()); 
-//				return 	rs.reverse();
 				callFun(rs.reverse());
 				var endTime = new Date().getTime();
 				cc.log("寻路耗时: " + (endTime - startTime));
@@ -56,7 +52,6 @@ var AManager = function(){
 		}
 		return;
 	}
-	
 	/**
 	 * 比较方法(按照F比较)
 	 */
@@ -148,9 +143,7 @@ var AManager = function(){
 		}else {
 			return true;
 		}
-	}
-	
-	
+	}	
 };
 
 var amanager = new AManager();
