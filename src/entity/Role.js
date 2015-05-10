@@ -10,7 +10,7 @@ Role = cc.Class.extend({
 		this.x = x;
 		this.y = y;
 		this.uuid = x + ":" + y;
-		this.vel = 50;
+		this.vel = 100;
 		this.locs = new LinkList();
 		this.sprite = new cc.Sprite("res/role.png");
 		this.sprite.setScale(0.5);
@@ -37,6 +37,7 @@ Role = cc.Class.extend({
 	 */
 	spriteUpdate:function(body, dt){
 		var self = this;
+		this.sprite.setPosition(body.getPos());
 //		cc.log("update : " + self.uuid);
 		if(this.locs.getSize() != 0){ 
 			//轮询路径点数组,寻找下一个路径点行走过去
@@ -55,11 +56,12 @@ Role = cc.Class.extend({
 				var r = cc.degreesToRadians(Math.atan2(y, x) * 57.29577951);
 				//2.往目标位置移动
 				body.setVel(cp.v(Math.cos(r)*this.vel, Math.sin(r)*this.vel));
-				this.sprite.setPosition(body.getPos());
+				this.sprite.setRotation(-(Math.atan2(y, x) * 57.29577951 - 90));
 			}
 		}else {//停止运动
 			body.setVel(cp.v(0,0));
 		}
+		
 	},
 	/**
 	 * 检查位置是否在原来的位置

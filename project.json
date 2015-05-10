@@ -24,6 +24,9 @@
     "src/entity/Node.js",
     "src/entity/Role.js",
     "src/entity/Enemy.js",
+    "src/entity/Hero.js",
+    "src/entity/Barrier.js",
+    "src/entity/Bullet.js",
     
     "src/scene/GameScene.js"
   ]

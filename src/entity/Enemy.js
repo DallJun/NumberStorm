@@ -4,10 +4,10 @@ Enemy = Role.extend({
 	
 	ctor:function(x, y, target, tRole){
 		this._super(x, y, target); 
-		this.vel = 20;
+		this.vel = 50;
 		this.tRole = tRole.sprite;
 		cc.director.getScheduler().scheduleCallbackForTarget(this, this.query, 3, cc.REPEAT_FOREVER, 1, false);
-	},  
+	},
 	/** 
 	 * 寻找敌人,追踪敌人
 	 */ 

@@ -82,6 +82,7 @@ var pManager = {
     },
     createStaticBody:function(spriteTag,groupTag,sprite){
         //创建刚体，形状
+    	cc.log("添加了一个静态刚体");
         var pos = sprite.getPos();
         var size = sprite.getSize();
         var body = new cp.StaticBody();
@@ -136,11 +137,12 @@ var pManager = {
 
             if(body2.sprite.delFlag){  //删除标志
                 body2.sprite.delHandler();
-                staticBodies.splice(j,1);j--;
+                staticBodies.splice(j,1);
+                j--;
             }
         }
 
-        for(var n=0; n<removeShape.length;n++) {
+        for(var n=0; n<removeShape.length;n++) { 
             var shape = removeShape[n];
             this.space.removeBody(shape.getBody());
             this.space.removeShape(shape);

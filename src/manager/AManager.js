@@ -114,8 +114,7 @@ var AManager = function(){
 	 */
 	this.createNode = function(x, y){
 		var node = new app.Node(x, y);
-		var gid = this.map.getLayer('layer01').getTileGIDAt(x, y);
-		var p = this.map.getPropertiesForGID(gid);
+		var p = this.map.getPropertiesForGID(this.layer.getTileGIDAt(x, y));
 		if(p&&p.body == "true") {
 			node.isObstacle = true;
 		} 
@@ -126,6 +125,9 @@ var AManager = function(){
 	 * 判断该点是否是障碍物
 	 */
 	this.isObstacle = function(p) {
+		if(p.x < 0 || p.y < 0 || p.x >= game.mapWidth || p.y >= game.mapHeight){
+			return true;
+		}
 		var p = this.map.getPropertiesForGID(this.layer.getTileGIDAt(p));
 		if(p&&p.body == "true") {
 			return true;
