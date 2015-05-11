@@ -11,9 +11,10 @@ var GameLayer = cc.Layer.extend({
 		this.addTouch();  //添加触屏事件
 		this.addEnemys(); //添加敌人
 		amanager.initTileMapLayer(this.map, "layer01");
-		this.role = new Hero(10, 2, this);
+		this.role = new Hero(10, 10, this);
 		pManager.create_world(this, null);
 		pManager.createDynamicBody(1, 1, this.role);
+		this.role.fire(1);
 		//敌人
 		this.enemys = new Array(); 
 		for(var i=0; i<4; i++){

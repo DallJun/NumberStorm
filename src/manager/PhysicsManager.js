@@ -25,7 +25,7 @@ var pManager = {
             //清空刚体
             this.clearBodys();
         }
-        if(true){//$config.physic.debug) {
+        if(false){//$config.physic.debug) {
             var debugNode = cc.PhysicsDebugNode.create(this.space);
             debugNode.setVisible(true);
             _scene.addChild(debugNode, 9999999);
@@ -82,7 +82,6 @@ var pManager = {
     },
     createStaticBody:function(spriteTag,groupTag,sprite){
         //创建刚体，形状
-    	cc.log("添加了一个静态刚体");
         var pos = sprite.getPos();
         var size = sprite.getSize();
         var body = new cp.StaticBody();

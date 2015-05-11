@@ -11,6 +11,7 @@ Role = cc.Class.extend({
 		this.y = y;
 		this.uuid = x + ":" + y;
 		this.vel = 100;
+		this.layer = target;
 		this.locs = new LinkList();
 		this.sprite = new cc.Sprite("res/role.png");
 		this.sprite.setScale(0.5);
