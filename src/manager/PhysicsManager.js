@@ -25,7 +25,7 @@ var pManager = {
             //清空刚体
             this.clearBodys();
         }
-        if(false){//$config.physic.debug) {
+        if(true){//$config.physic.debug) {
             var debugNode = cc.PhysicsDebugNode.create(this.space);
             debugNode.setVisible(true);
             _scene.addChild(debugNode, 9999999);

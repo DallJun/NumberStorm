@@ -17,8 +17,8 @@ var AManager = function(){
 	/**
 	 * 寻找路径
 	 */
-	this.query = function(start, end, callFun){
-		var startTime = new Date().getTime();
+	this.query = function(start, end, callFun, roleID){
+//		var startTime = new Date().getTime();
 		if(start.x == end.x && start.y == end.y){
 			return ;
 		}
@@ -43,9 +43,13 @@ var AManager = function(){
 					rs.push(index);
 					index = index.parentNode;
 				}
-				callFun(rs.reverse());
-				var endTime = new Date().getTime();
-				cc.log("寻路耗时: " + (endTime - startTime));
+				var arr = rs.reverse();
+				callFun(arr);
+				if(arr.length > 0){
+					utils.sendEvent(roleID, arr);
+				}
+//				var endTime = new Date().getTime();
+//				cc.log("寻路耗时: " + (endTime - startTime));
 				return;
 			}
 			this.astar(end);

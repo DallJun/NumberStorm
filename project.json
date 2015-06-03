@@ -6,7 +6,7 @@
   "id": "gameCanvas",
   "renderMode": 0,
   "engineDir": "frameworks/cocos2d-html5",
-  "modules": [
+  "modules": [ 
         "cocos2d",
         "extensions",
         "external"
@@ -20,6 +20,7 @@
     
     "src/manager/PhysicsManager.js", 
     "src/manager/AManager.js",
+
     
     "src/entity/Node.js",
     "src/entity/Role.js",
@@ -27,6 +28,8 @@
     "src/entity/Hero.js",
     "src/entity/Barrier.js",
     "src/entity/Bullet.js",
+    
+    "src/manager/BulletManager.js",
     
     "src/scene/GameScene.js"
   ]

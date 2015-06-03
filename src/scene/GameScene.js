@@ -7,22 +7,23 @@ var GameLayer = cc.Layer.extend({
 	ctor:function () {
 		this._super();
 		this.initMap(); //加载地图
-//		this.addDraw();  //添加绘画层
-		this.addTouch();  //添加触屏事件
+		this.addDraw();  //添加绘画层
+//		this.addTouch();  //添加触屏事件
 		this.addEnemys(); //添加敌人
 		amanager.initTileMapLayer(this.map, "layer01");
 		this.role = new Hero(10, 10, this);
 		pManager.create_world(this, null);
 		pManager.createDynamicBody(1, 1, this.role);
-		this.role.fire(1);
+//		this.role.fire(1);
 		//敌人
 		this.enemys = new Array(); 
-		for(var i=0; i<4; i++){
-			var e = new Enemy(i+12, 2, this ,this.role);
+		for(var i=0; i<3; i++){
+			var e = new Enemy(i+12, 2, this ,this.role, i+1);
 			this.enemys.push(e);
-			pManager.createDynamicBody(i+2, i+2, e); 
+			pManager.createDynamicBody(1, i+2, e); 
 		}
 		this.addWall();   //添加游戏中的墙壁
+//		this.addListen();
 		this.scheduleUpdate();
 	}, 
 	
@@ -72,18 +73,6 @@ var GameLayer = cc.Layer.extend({
 				var tile = utils.pos2tile(pos);
 				cc.log("tile: " + tile.x + " : " + tile.y);
 				self.role.moveTo(tile);
-//				cc.log("开始耗时!!");
-//				
-//				cc.async.parallel([function(cb){
-//				                	   cc.log("主线程"); 
-//				                	   amanager.query(cc.p(1,2), cc.p(40,30), function(){});
-//				                	   cb(null, "AAAA");// 此处代替异步调用方法
-//				                	   cc.log("over");
-//				                   }],
-//				                   function(err, results){
-//										if(err) throw err;// error 
-//										cc.log(results);// ["a", "B"]
-//									});
 			}
 		}, this);
 	},

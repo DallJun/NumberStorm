@@ -9,7 +9,7 @@ Role = cc.Class.extend({
 	ctor:function(x, y, target){
 		this.x = x;
 		this.y = y;
-		this.uuid = x + ":" + y;
+		this.uuid = utils.uuid();
 		this.vel = 100;
 		this.layer = target;
 		this.locs = new LinkList();
@@ -21,7 +21,20 @@ Role = cc.Class.extend({
 		target.addChild(this.sprite, 5);
 		var pp = utils.pos2tile(this.sprite.getPosition());
 	}, 
-
+	/**
+	 * 添加时间监听
+	 */
+	addListen:function(target){
+		utils.addListener(this.uuid, function(event){
+			var rs = event.getUserData();
+			if(rs){ 
+				for(var k in rs){
+					target.locs.addNode(rs[k]);
+				}
+			}
+		});
+	},
+	
 	setPosition:function(newPosOrxValue, yValue){
 		this.sprite.setPosition(newPosOrxValue, yValue);
 	},
@@ -83,12 +96,7 @@ Role = cc.Class.extend({
 		//获取路径节点
 		amanager.query(utils.pos2tile(self.sprite.getPosition()), tp ,function(rs){
 			self.drawLocs(rs);
-			if(rs){ 
-				for(var k in rs){
-					self.locs.addNode(rs[k]);
-				}
-			}
-		});
+		}, this.uuid);
 	},
 	/**
 	 * 画出自己的路径

@@ -4,6 +4,7 @@ Bullet = cc.Class.extend({
 	targetNum:null, //目标数字
 	belong:null,
 	vel:null,
+	id:null,
 	/**
 	 * pos 初始位置  
 	 * targetNum 目标数字
