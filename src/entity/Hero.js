@@ -9,6 +9,7 @@ Hero = Role.extend({
 		this.bullets = [];
 		this.addKeyListen();
 		this.clip = [1,2,3];
+//		this.addListen(this);//开启电脑控制模式
 	},
 	
 	//发射子弹
@@ -61,11 +62,9 @@ Hero = Role.extend({
 		default:
 			break;
 		}
-		
 	},
 	
 	onKeyPressed:function(key, event) {
-		cc.log(key);
 		switch (key) {
 		case 74: // 开火
 			this.fire(0);

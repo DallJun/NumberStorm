@@ -7,11 +7,11 @@ var GameLayer = cc.Layer.extend({
 	ctor:function () {
 		this._super();
 		this.initMap(); //加载地图
-		this.addDraw();  //添加绘画层
-//		this.addTouch();  //添加触屏事件
+//		this.addDraw();  //添加绘画层
+		this.addTouch();  //添加触屏事件
 		this.addEnemys(); //添加敌人
 		amanager.initTileMapLayer(this.map, "layer01");
-		this.role = new Hero(10, 10, this);
+		this.role = new Role(9, 10, this);
 		pManager.create_world(this, null);
 		pManager.createDynamicBody(1, 1, this.role);
 //		this.role.fire(1);

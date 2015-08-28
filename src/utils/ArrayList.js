@@ -7,6 +7,9 @@ var ArrayList = function(){
 	};
 	
 	this.get = function(index) {
+		if(arr.length == 0){
+			return;
+		}
 		return arr[index];
 	};
 	

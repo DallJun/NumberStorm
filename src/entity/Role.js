@@ -20,9 +20,10 @@ Role = cc.Class.extend({
 		target.addChild(this.draw, 5);
 		target.addChild(this.sprite, 5);
 		var pp = utils.pos2tile(this.sprite.getPosition());
+		this.addListen(this);
 	}, 
 	/**
-	 * 添加时间监听
+	 * 添加事件监听
 	 */
 	addListen:function(target){
 		utils.addListener(this.uuid, function(event){
@@ -52,7 +53,7 @@ Role = cc.Class.extend({
 	spriteUpdate:function(body, dt){
 		var self = this;
 		this.sprite.setPosition(body.getPos());
-//		cc.log("update : " + self.uuid);
+//		("update : " + self.uuid);
 		if(this.locs.getSize() != 0){ 
 			//轮询路径点数组,寻找下一个路径点行走过去
 			var node = this.locs.getHeardNode();
@@ -60,7 +61,6 @@ Role = cc.Class.extend({
 			if(this.checkLoc(this.sprite.getPosition(), node.getPos())){
 //				cc.log("取出下一个位置:" + node.toString());
 				this.locs.removeHeardNode();
-//				cc.log("清楚已经行走过的地点");
 			}else{
 				//1.取出目标位置
 				var target = utils.posCount(utils.tile2Pos(node.getPos()),0);
@@ -71,11 +71,12 @@ Role = cc.Class.extend({
 				//2.往目标位置移动
 				body.setVel(cp.v(Math.cos(r)*this.vel, Math.sin(r)*this.vel));
 				this.sprite.setRotation(-(Math.atan2(y, x) * 57.29577951 - 90));
+				//
+//				self.sprite.runAction();
 			}
 		}else {//停止运动
 			body.setVel(cp.v(0,0));
 		}
-		
 	},
 	/**
 	 * 检查位置是否在原来的位置
